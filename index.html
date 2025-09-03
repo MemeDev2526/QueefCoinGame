@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Puff Dodge — $QUEEF (Prototype)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rubik:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- HUD -->
+  <header id="hud" role="banner">
+    <div class="hud-left">
+      <div class="brand">$QUEEF • Puff Dodge (Prototype)</div>
+      <div class="stats" role="status" aria-live="polite">
+        <span>Score: <strong id="score">0</strong></span>
+        <span>Coins: <strong id="coins">0</strong></span>
+        <span>Lives: <strong id="lives">3</strong></span>
+        <span>Mult: <strong id="mult">1x</strong></span>
+      </div>
+    </div>
+    <div class="hud-right">
+      <div class="burn">🔥 Burn (mock): <strong id="burn">0</strong> $QUEEF</div>
+      <div class="mode">Mode: <strong id="mode">Practice</strong></div>
+    </div>
+  </header>
+
+  <!-- Game container -->
+  <div id="game-container">
+    <canvas id="game" width="960" height="540" aria-label="Puff Dodge canvas"></canvas>
+
+    <!-- Inventory (tap/click to activate) -->
+    <div id="inventory" aria-label="Power-up inventory (tap to activate)">
+      <button class="slot" data-slot="0" aria-label="Use power-up in slot 1">—</button>
+      <button class="slot" data-slot="1" aria-label="Use power-up in slot 2">—</button>
+      <button class="slot" data-slot="2" aria-label="Use power-up in slot 3">—</button>
+    </div>
+
+    <!-- Touch controls -->
+    <div id="controls" aria-hidden="false">
+      <button id="btn-left"  aria-label="Move left">⟵</button>
+      <button id="btn-jump"  aria-label="Jump">⤊</button>
+      <button id="btn-right" aria-label="Move right">⟶</button>
+    </div>
+
+    <!-- Start/Reset overlay -->
+    <div id="overlay" role="dialog" aria-modal="true">
+      <div class="card">
+        <img src="logo-epic-final.png" alt="$QUEEF Logo" class="logo"/>
+        <h1>PUFF DODGE</h1>
+        <p>Practice Mode — no real tokens. Burn counter is visual only.</p>
+        <div class="buttons">
+          <button id="btn-start">Start</button>
+          <button id="btn-reset">Reset</button>
+          <a id="btn-home" href="#" onclick="return false;">QueefCoin Site</a>
+        </div>
+        <div class="legend">
+          <p><strong>How to play</strong>: Move ◀ ▶ and Jump ⤊. Dodge rugs & FUD. Collect coins and power-ups.</p>
+          <ul>
+            <li>💠 <b>Shield</b> — prevent next hit</li>
+            <li>⏱️ <b>Slow-mo</b> — 5s slow time</li>
+            <li>❤️ <b>+1 Life</b> — gain a life</li>
+            <li>✨ <b>2x/5x/10x/100x</b> — score multiplier (timed)</li>
+          </ul>
+          <p><em>Inventory holds up to 3 power-ups. Tap a slot to activate.</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
