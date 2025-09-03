@@ -1,0 +1,119 @@
+/* ===== $QUEEF Brand Vars (locked) ===== */
+:root{
+  --orange:  #FF6B00;   /* Primary Brand Orange */
+  --orange-hi:#FF9500;  /* Highlight Orange */
+  --black:   #0D0D0D;   /* Jet Black */
+  --white:   #FFFFFF;   /* Puff White */
+  --gold:    #FDC100;   /* Coin gold */
+  --solanaD: #008CFF;   /* Solana Blue Dark */
+  --solanaL: #94DAFF;   /* Solana Blue Light */
+  --purpleA: #2C0A44;   /* Cosmic gradient start */
+  --purpleB: #4D0D57;   /* Cosmic gradient end */
+  --gray:    #AAAAAA;   /* Soft Gray */
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  color: var(--white);
+  font-family: 'Rubik', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans';
+  background:
+    radial-gradient(1200px 600px at 50% 20%, rgba(255,107,0,0.25), transparent 60%),
+    linear-gradient(180deg, var(--purpleA), var(--purpleB));
+  overflow: hidden;
+}
+
+/* ===== HUD ===== */
+#hud{
+  position: fixed; inset: 0 0 auto 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 14px; z-index: 5;
+  background: linear-gradient(180deg, rgba(13,13,13,0.7), rgba(13,13,13,0.0));
+  backdrop-filter: blur(3px);
+  font-weight: 800;
+}
+#hud .brand { color: var(--orange); letter-spacing: .5px; font-family: 'Luckiest Guy', cursive; }
+#hud .stats span { margin-right: 14px; }
+#hud .burn { color: var(--gold); }
+#hud .mode { color: var(--gray); }
+
+/* ===== Game Container & Canvas ===== */
+#game-container{
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 96vw; max-width: 1000px; aspect-ratio: 16/9;
+  border: 3px solid var(--orange);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--black);
+  box-shadow: 0 0 30px rgba(255,107,0,0.5);
+}
+#game{
+  width: 100%; height: 100%; display: block;
+  background-image:
+    radial-gradient(600px 300px at 70% 10%, rgba(255,149,0,0.2), transparent 60%),
+    url('mascot-poster-v2.png');
+  background-size: cover;
+  background-blend-mode: lighten;
+  image-rendering: pixelated;
+}
+
+/* ===== Inventory ===== */
+#inventory{
+  position: absolute; left: 8px; bottom: 8px;
+  display: flex; gap: 8px; z-index: 4;
+}
+#inventory .slot{
+  width: 64px; height: 64px; border-radius: 8px;
+  border: 2px solid var(--orange);
+  background: rgba(13,13,13,0.6);
+  color: var(--white); font-weight: 800;
+}
+#inventory .slot.ready { box-shadow: 0 0 12px var(--orange-hi); }
+#inventory .slot:active { transform: translateY(1px); }
+
+/* ===== Touch Controls ===== */
+#controls{
+  position: absolute; right: 8px; bottom: 8px;
+  display: flex; gap: 10px; z-index: 4;
+}
+#controls button{
+  width: 72px; height: 72px; border-radius: 50%;
+  border: 2px solid var(--orange);
+  background: rgba(255,107,0,0.15);
+  color: var(--white); font-size: 22px; font-weight: 900;
+}
+#controls button:active{ transform: scale(0.98); }
+
+/* ===== Overlay ===== */
+#overlay{
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: rgba(13,13,13,0.85); z-index: 6;
+}
+#overlay .card{
+  width: min(92%, 640px);
+  background: rgba(13,13,13,0.9);
+  border: 2px solid var(--orange);
+  border-radius: 16px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255,107,0,0.5);
+}
+#overlay .logo{ width: 180px; filter: drop-shadow(0 0 12px rgba(255,149,0,.4)); }
+#overlay h1{ margin: 8px 0 6px; letter-spacing: 1px; font-family: 'Luckiest Guy', cursive; }
+#overlay .buttons{ display:flex; gap:10px; justify-content:center; margin-top:10px; }
+#overlay .buttons button, #overlay .buttons a{
+  padding: 10px 14px; font-weight: 800; border-radius: 10px;
+  border: 2px solid var(--orange);
+  background: rgba(255,107,0,0.15); color: var(--white); text-decoration: none;
+}
+#overlay .legend{ text-align:left; margin-top: 12px; color: var(--gray); }
+#overlay ul{ margin: 8px 0 0 20px; }
+
+/* ===== Small screens ===== */
+@media (max-width: 700px){
+  #inventory .slot{ width: 56px; height: 56px; }
+  #controls button{ width: 64px; height: 64px; }
+}
