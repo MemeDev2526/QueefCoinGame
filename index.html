@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Puff Dodge — Coming Soon | $QUEEF</title>
-  <meta name="description" content="Puff Dodge — the $QUEEF arcade runner with burn‑per‑play mechanics, power‑ups, and a global leaderboard. Coming soon." />
+  <meta name="description" content="Puff Dodge — the $QUEEF arcade runner with burn-per-play mechanics, power-ups, and a global leaderboard. Coming soon." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
@@ -37,6 +37,9 @@
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--maxw); margin-inline:auto; padding:0 var(--pad);}
 
+    /* Keep content above floaters */
+    header, main, footer { position: relative; z-index: 1; }
+
     /* Header */
     header{position:sticky; top:0; z-index:20; backdrop-filter: blur(8px); background: linear-gradient(to bottom, rgba(13,13,13,.55), rgba(13,13,13,0));}
     .nav{display:flex; align-items:center; justify-content:space-between; padding:14px var(--pad);} 
@@ -49,6 +52,9 @@
     .btn:hover{transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.35);} 
     .btn.primary{--bg: linear-gradient(180deg, var(--highlight), var(--orange)); --fg: #101010; border-color: rgba(253,193,0,.5);} 
     .btn.ghost{background: rgba(255,255,255,.06);} 
+
+    /* Headings -> brand orange */
+    h1, h2, h3, h4, h5, h6 { color: var(--orange); }
 
     /* Hero */
     .hero{display:grid; grid-template-columns: 1.2fr 1fr; gap: clamp(20px, 2.5vw, 44px); align-items:center; padding: clamp(40px, 6vw, 80px) 0;}
@@ -75,6 +81,24 @@
     .chip{display:flex; align-items:center; gap:10px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); padding:12px 14px; border-radius:999px; font-weight:500}
     .chip i{font-style:normal}
 
+    /* Puff divider */
+    .puff-divider{
+      width:100%;
+      height:28px;
+      margin: 8px 0 32px;
+      background:
+        radial-gradient(20px 12px at 10% 50%, var(--orange) 30%, transparent 31%) repeat-x,
+        linear-gradient(var(--black), var(--black));
+      background-size: 80px 24px, 100% 100%;
+      filter: drop-shadow(0 2px 0 var(--highlight));
+      opacity:.95;
+    }
+
+    /* Social proof strip */
+    .social-strip{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin: 0 0 36px;}
+    .social-strip .chip{border-color: rgba(255,107,0,.35);}
+    .social-strip .chip:hover{box-shadow: 0 10px 22px rgba(0,0,0,.35); transform: translateY(-1px);}
+
     /* Cards */
     .section{padding: 24px 0 64px}
     .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px;}
@@ -98,6 +122,16 @@
     .foot{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:18px var(--pad) 28px}
     .contract{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; color: var(--gray)}
 
+    /* Floating coins */
+    .floaters{position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;}
+    .floater{position:absolute; width:64px; opacity:.9; animation: drift 22s linear infinite;}
+    .floater:nth-child(2){animation-duration:26s; width:54px; opacity:.85}
+    .floater:nth-child(3){animation-duration:30s; width:72px; opacity:.8}
+    @keyframes drift{
+      0%   { transform: translateY(110vh) rotate(0deg); }
+      100% { transform: translateY(-20vh)  rotate(360deg); }
+    }
+
     /* Responsive */
     @media (max-width: 980px){
       .hero{grid-template-columns: 1fr; padding-top: 28px}
@@ -111,11 +145,16 @@
       .tick{min-width:74px}
       .brand-sub{display:none}
     }
-      /* Brand: headings in Queef Orange */
-    h1, h2, h3, h4, h5, h6 { color: var(--orange); }
   </style>
 </head>
 <body>
+  <!-- Floating coins (visual only) -->
+  <div class="floaters" aria-hidden="true">
+    <img class="floater" style="left:8%"  src="assets/coin-main.png" alt="">
+    <img class="floater" style="left:50%" src="assets/coin-main.png" alt="">
+    <img class="floater" style="left:84%" src="assets/coin-main.png" alt="">
+  </div>
+
   <header>
     <div class="wrap nav">
       <div class="brand">
@@ -126,7 +165,7 @@
         </div>
       </div>
       <div class="nav-cta">
-        <a class="btn ghost" href="https://t.me/QueefCoinOfficial" target="_blank" rel="noopener">Join Telegram</a>
+        <a class="btn ghost" href="https://t.me/The_QueefCoin" target="_blank" rel="noopener">Join Telegram</a>
         <a class="btn primary" href="#notify">Get Notified</a>
       </div>
     </div>
@@ -135,13 +174,13 @@
   <main class="wrap">
     <section class="hero">
       <div>
-        <div class="kicker">Arcade Runner • Burn‑Per‑Play • Leaderboard</div>
+        <div class="kicker">Arcade Runner • Burn-Per-Play • Leaderboard</div>
         <h1>The Puff Is Coming</h1>
-        <p class="subtitle">Puff Dodge is the chaotic, addicting arcade runner set in the $QUEEF universe. Collect coins, dodge rugs, trigger power‑ups, and burn with every play. Global leaderboard. Meme‑tier bragging rights.</p>
+        <p class="subtitle">Puff Dodge is a chaotic, addicting arcade runner set in the meme universe. Play as the Queefcoin Mascot, "Queefy" to dodge rugs, slap FUD, collect queefcoins, trigger power-ups, and burn $QUEEF with every play. Puff Loud and Glorify your Queef with Global leaderboard and rewards. Meme-tier bragging rights.</p>
         <div class="hero-ctas">
           <a class="btn primary" href="#notify">Notify Me</a>
-          <a class="btn" href="https://x.com/search?q=%24QUEEF" target="_blank" rel="noopener">Follow on X</a>
-          <a class="btn ghost" href="https://memedev2526.github.io/QueefCoin/" target="_blank" rel="noopener">Main Site</a>
+          <a class="btn" href="https://x.com/Queef_Coin_Sol" target="_blank" rel="noopener">Follow on X</a>
+          <a class="btn ghost" href="https://queefcoinsol.com/" target="_blank" rel="noopener">Main Site</a>
         </div>
         <div class="countdown" id="countdown" data-launch="2025-10-15T16:00:00-04:00" aria-label="Launch countdown">
           <div class="tick"><strong id="d">00</strong><span>Days</span></div>
@@ -150,15 +189,29 @@
           <div class="tick"><strong id="s">00</strong><span>Secs</span></div>
         </div>
         <div class="strip" role="list" aria-label="Key features">
-          <div class="chip" role="listitem">💨 <i>Burn per play</i></div>
-          <div class="chip" role="listitem">🎮 <i>Power‑ups & lives</i></div>
-          <div class="chip" role="listitem">🏆 <i>Global leaderboard</i></div>
-          <div class="chip" role="listitem">🗳️ <i>DAO‑tuned economics</i></div>
+          <div class="chip" role="listitem">💨 <i>Burn per play - Reduce supply of $QUEEF </i></div>
+          <div class="chip" role="listitem">🎮 <i>Power-ups, extra lives, cosmetics</i></div>
+          <div class="chip" role="listitem">🏆 <i>Global leaderboard - Reward Payouts</i></div>
+          <div class="chip" role="listitem">🗳️ <i>Community Powered - DAO-tuned </i></div>
         </div>
       </div>
       <div class="hero-art">
         <div class="hero-img" aria-hidden="true"></div>
         <div class="badge">Coming Soon</div>
+      </div>
+    </section>
+
+    <!-- Puff divider -->
+    <div class="puff-divider" aria-hidden="true"></div>
+
+    <!-- Social proof strip -->
+    <section class="section" id="social">
+      <div class="social-strip" aria-label="Follow & hashtags">
+        <a class="chip" href="https://x.com/hashtag/PumpThePuff" target="_blank" rel="noopener">#PumpThePuff</a>
+        <a class="chip" href="https://x.com/hashtag/DontFadeThePuff" target="_blank" rel="noopener">#DontFadeThePuff</a>
+        <a class="chip" href="https://x.com/hashtag/PuffPowered" target="_blank" rel="noopener">#PuffPowered</a>
+        <a class="chip" href="https://x.com/hashtag/QueefCoin" target="_blank" rel="noopener">#QueefCoin</a>
+        <a class="chip" href="https://x.com/hashtag/PuffWithPurpose" target="_blank" rel="noopener">#PuffWithPurpose</a>
       </div>
     </section>
 
@@ -171,13 +224,13 @@
         </article>
         <article class="card">
           <div>⚡</div>
-          <h3>Power‑Ups That Slap</h3>
-          <p>Shield, slow‑mo, extra life, and multipliers up to <strong>100×</strong>. Combo your way to obscene scores and flex on the timeline.</p>
+          <h3>Power-Ups That Slap</h3>
+          <p>Shields, slow-mo, extra life, cosmetics and multipliers up to <strong>100×</strong>. Combo your way to obscene scores and flex on the timeline.</p>
         </article>
         <article class="card">
           <div>🔥</div>
-          <h3>Burn With Purpose</h3>
-          <p>Each play sends value to the fire. Launch period: <strong>50% of game revenue burned</strong> (DAO‑adjustable after the first 3 months).</p>
+          <h3>Play & Burn With Purpose</h3>
+          <p>Each play burns $QUEEF, reducing supply and pumping the puff louder, prouder, higher and more feral. Launch period: Burning strong with <strong>50% of game revenue burned</strong> (DAO-adjustable after the first 3 months).</p>
         </article>
       </div>
     </section>
@@ -191,14 +244,14 @@
             <input class="input" type="email" name="email" placeholder="you@degencitadel.sol" required aria-label="Email address" />
             <button class="btn primary" type="submit">Notify Me</button>
           </form>
-          <small style="display:block; margin-top:8px; color:var(--gray)">Or join the chat — faster alpha: <a href="https://t.me/QueefCoinOfficial" target="_blank" rel="noopener" style="text-decoration:underline; color:#fff">Telegram</a></small>
+          <small style="display:block; margin-top:8px; color:var(--gray)">Or join the chat — faster alpha: <a href="https://t.me/The_QueefCoin" target="_blank" rel="noopener" style="text-decoration:underline; color:#fff">Telegram</a></small>
         </div>
         <div class="card" style="background: rgba(255,255,255,.04)">
           <h3>Mini Roadmap</h3>
           <div class="road">
             <div class="step"><strong>Phase 1</strong><br/> Core runner + mobile controls</div>
-            <div class="step"><strong>Phase 2</strong><br/> Coins, lives, and power‑ups</div>
-            <div class="step"><strong>Phase 3</strong><br/> Global leaderboard + anti‑cheat</div>
+            <div class="step"><strong>Phase 2</strong><br/> Coins, lives, and power-ups</div>
+            <div class="step"><strong>Phase 3</strong><br/> Global leaderboard + anti-cheat</div>
             <div class="step"><strong>Phase 4</strong><br/> Burn tracking + DAO knobs</div>
           </div>
         </div>
@@ -209,15 +262,15 @@
       <div class="cards">
         <article class="card">
           <h3>When is launch?</h3>
-          <p>We’re targeting the date above. The countdown will keep you honest; we’ll keep building. If the DAO nudges the plan, we’ll update here.</p>
+          <p>We’re targeting the date above. The countdown will help keep us on track; we’ll keep building and dropping updates on X and in Telegram.</p>
         </article>
         <article class="card">
           <h3>Play to burn — how?</h3>
-          <p>During the initial window, 50% of game revenue is burned, 20% to DAO, 20% to leaderboard rewards, 10% to dev. After 3 months, these split knobs are DAO‑adjustable.</p>
+          <p>Every play requires a small entry fee of $QUEEF. Fees collected and revenue from in-game purchases are split between leaderboard rewards, DAO, and burns. During the initial launch period, 50% of game revenue is burned, 25% to leaderboard rewards, 15% to DAO, 10% to dev. Afterwards, these splits are DAO-adjustable.</p>
         </article>
         <article class="card">
           <h3>Where can I follow?</h3>
-          <p><a href="https://x.com/search?q=%24QUEEF" target="_blank" rel="noopener">X</a> • <a href="https://t.me/QueefCoinOfficial" target="_blank" rel="noopener">Telegram</a> • <a href="https://memedev2526.github.io/QueefCoin/" target="_blank" rel="noopener">Website</a></p>
+          <p><a href="https://x.com/Queef_Coin_Sol" target="_blank" rel="noopener">X</a> • <a href="https://t.me/The_QueefCoin" target="_blank" rel="noopener">Telegram</a> • <a href="https://www.tiktok.com/@queefcoinsol" target="_blank" rel="noopener">TikTok</a> • <a href="https://queefcoinsol.com/" target="_blank" rel="noopener">Website</a></p>
         </article>
       </div>
     </section>
