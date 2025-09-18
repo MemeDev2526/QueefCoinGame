@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Puff Dodge — Coming Soon | $QUEEF</title>
+  <meta name="description" content="Puff Dodge — the $QUEEF arcade runner with burn‑per‑play mechanics, power‑ups, and a global leaderboard. Coming soon." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* Brand tokens (locked) */
+      --orange: #FF6B00;       /* Primary Brand Orange */
+      --highlight: #FF9500;    /* Highlight Orange */
+      --gold: #FDC100;         /* Coin glow */
+      --black: #0D0D0D;        /* Jet Black */
+      --white: #FFFFFF;        /* Puff White */
+      --gray: #AAAAAA;         /* Soft Gray */
+      --solana-blue: #008CFF;  /* Diamond fists dark */
+      --bg-start: #2C0A44;     /* Background purple gradient start */
+      --bg-end:   #4D0D57;     /* Background purple gradient end */
+
+      --maxw: 1200px;
+      --pad:  clamp(16px, 1.5vw, 24px);
+      --radius: 20px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    html, body{height:100%;}
+    body{
+      margin:0; color:var(--white); background: radial-gradient(1200px 800px at 20% -10%, rgba(255,105,180,.12), transparent 60%),
+                                   radial-gradient(800px 600px at 100% 20%, rgba(0,255,163,.08), transparent 60%),
+                                   linear-gradient(160deg, var(--bg-start), var(--bg-end));
+      font-family: Rubik, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--maxw); margin-inline:auto; padding:0 var(--pad);}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:20; backdrop-filter: blur(8px); background: linear-gradient(to bottom, rgba(13,13,13,.55), rgba(13,13,13,0));}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px var(--pad);} 
+    .brand{display:flex; align-items:center; gap:12px;}
+    .brand-logo{width:44px; height:44px; border-radius:12px; background: radial-gradient(circle at 40% 35%, #FFA044, #FF6B00 60%); box-shadow: inset 0 0 0 3px #000, 0 6px 20px rgba(0,0,0,.4);}
+    .brand-name{font-family: "Luckiest Guy", cursive; letter-spacing:.5px; font-size:22px; line-height:1;}
+    .brand-sub{opacity:.8; font-size:12px;}
+    .nav-cta{display:flex; gap:10px;}
+    .btn{--bg: #1a1a1a; --fg: var(--white); display:inline-flex; align-items:center; justify-content:center; gap:.5rem; height:44px; padding:0 18px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background: var(--bg); color:var(--fg); box-shadow: 0 6px 14px rgba(0,0,0,.25); transition: transform .08s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;}
+    .btn:hover{transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.35);} 
+    .btn.primary{--bg: linear-gradient(180deg, var(--highlight), var(--orange)); --fg: #101010; border-color: rgba(253,193,0,.5);} 
+    .btn.ghost{background: rgba(255,255,255,.06);} 
+
+    /* Hero */
+    .hero{display:grid; grid-template-columns: 1.2fr 1fr; gap: clamp(20px, 2.5vw, 44px); align-items:center; padding: clamp(40px, 6vw, 80px) 0;}
+    .kicker{font-size:14px; text-transform: uppercase; letter-spacing:.12em; color: var(--gold);} 
+    h1{font-family: "Luckiest Guy", cursive; font-weight:400; font-size: clamp(40px, 7vw, 84px); line-height: .95; margin: 6px 0 12px; text-shadow: 0 6px 30px rgba(0,0,0,.35);} 
+    .subtitle{font-size: clamp(16px, 2.2vw, 20px); color: #f4f4f4; opacity:.95; max-width: 48ch;}
+    .hero-ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px}
+
+    .countdown{display:flex; gap:10px; margin-top:26px}
+    .tick{min-width:86px; padding:12px 10px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:16px; text-align:center; box-shadow: var(--shadow);} 
+    .tick strong{display:block; font-size:28px; font-variant-numeric: tabular-nums;}
+    .tick span{display:block; font-size:12px; color: var(--gray); text-transform: uppercase; letter-spacing:.12em; margin-top:3px}
+
+    .hero-art{position:relative; aspect-ratio: 1 / 1; min-height: 320px;}
+    .hero-img{position:absolute; inset:0; background:
+      radial-gradient(800px 600px at 60% 40%, rgba(255,149,0,.25), rgba(255,149,0,0) 60%),
+      radial-gradient(500px 300px at 20% 80%, rgba(0,140,255,.2), rgba(0,140,255,0) 60%);
+      border-radius: 28px; border: 1px solid rgba(255,255,255,.12); box-shadow: var(--shadow); overflow:hidden;}
+    .hero-img::before{content:""; position:absolute; inset:0; background: url('assets/mascot-poses-v3.png') center/contain no-repeat; filter: drop-shadow(0 12px 30px rgba(0,0,0,.45));}
+    .badge{position:absolute; right:-8px; top:-12px; background: linear-gradient(180deg, var(--gold), var(--highlight)); color:#101010; border:2px solid #000; border-radius:18px; padding:8px 12px; font-weight:700; transform: rotate(6deg);}
+
+    /* Feature strip */
+    .strip{display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin: 16px 0 36px;}
+    .chip{display:flex; align-items:center; gap:10px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); padding:12px 14px; border-radius:999px; font-weight:500}
+    .chip i{font-style:normal}
+
+    /* Cards */
+    .section{padding: 24px 0 64px}
+    .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px;}
+    .card{background: rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.12); border-radius: 18px; padding:18px; box-shadow: var(--shadow)}
+    .card h3{font-family: "Luckiest Guy"; font-weight:400; letter-spacing:.5px; margin:.2rem 0 .6rem; font-size: 28px}
+    .card p{color:#EAEAEA}
+
+    /* Notify block */
+    .notify{display:grid; grid-template-columns: 1.3fr .7fr; gap:20px; align-items:center; margin-top: 22px;}
+    .form{display:flex; gap:10px}
+    .input{flex:1; height:48px; padding:0 14px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(0,0,0,.45); color:var(--white); font-size:16px}
+    .input::placeholder{color:#cfcfcf}
+
+    /* Roadmap */
+    .road{display:grid; grid-template-columns: repeat(2, 1fr); gap:18px; margin-top:10px}
+    .step{padding:14px 16px; border-radius:16px; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1)}
+    .step strong{color: var(--gold)}
+
+    /* Footer */
+    footer{border-top:1px solid rgba(255,255,255,.12); margin-top: 40px;}
+    .foot{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:18px var(--pad) 28px}
+    .contract{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; color: var(--gray)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{grid-template-columns: 1fr; padding-top: 28px}
+      .notify{grid-template-columns: 1fr}
+      .cards{grid-template-columns: 1fr 1fr}
+      .strip{grid-template-columns: 1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .cards{grid-template-columns: 1fr}
+      .road{grid-template-columns: 1fr}
+      .tick{min-width:74px}
+      .brand-sub{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true"></div>
+        <div>
+          <div class="brand-name">Puff Dodge</div>
+          <div class="brand-sub">by $QUEEF • Solana</div>
+        </div>
+      </div>
+      <div class="nav-cta">
+        <a class="btn ghost" href="https://t.me/QueefCoinOfficial" target="_blank" rel="noopener">Join Telegram</a>
+        <a class="btn primary" href="#notify">Get Notified</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="kicker">Arcade Runner • Burn‑Per‑Play • Leaderboard</div>
+        <h1>The Puff Is Coming</h1>
+        <p class="subtitle">Puff Dodge is the chaotic, addicting arcade runner set in the $QUEEF universe. Collect coins, dodge rugs, trigger power‑ups, and burn with every play. Global leaderboard. Meme‑tier bragging rights.</p>
+        <div class="hero-ctas">
+          <a class="btn primary" href="#notify">Notify Me</a>
+          <a class="btn" href="https://x.com/search?q=%24QUEEF" target="_blank" rel="noopener">Follow on X</a>
+          <a class="btn ghost" href="https://memedev2526.github.io/QueefCoin/" target="_blank" rel="noopener">Main Site</a>
+        </div>
+        <div class="countdown" id="countdown" data-launch="2025-10-15T16:00:00-04:00" aria-label="Launch countdown">
+          <div class="tick"><strong id="d">00</strong><span>Days</span></div>
+          <div class="tick"><strong id="h">00</strong><span>Hours</span></div>
+          <div class="tick"><strong id="m">00</strong><span>Mins</span></div>
+          <div class="tick"><strong id="s">00</strong><span>Secs</span></div>
+        </div>
+        <div class="strip" role="list" aria-label="Key features">
+          <div class="chip" role="listitem">💨 <i>Burn per play</i></div>
+          <div class="chip" role="listitem">🎮 <i>Power‑ups & lives</i></div>
+          <div class="chip" role="listitem">🏆 <i>Global leaderboard</i></div>
+          <div class="chip" role="listitem">🗳️ <i>DAO‑tuned economics</i></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="hero-img" aria-hidden="true"></div>
+        <div class="badge">Coming Soon</div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="cards">
+        <article class="card">
+          <div>🛡️</div>
+          <h3>Dodge the Rugs</h3>
+          <p>We took CT memes and turned them into obstacles. Rugs, fartcoins, and FUD try to clip your wings. Get slippery and puff past the noise.</p>
+        </article>
+        <article class="card">
+          <div>⚡</div>
+          <h3>Power‑Ups That Slap</h3>
+          <p>Shield, slow‑mo, extra life, and multipliers up to <strong>100×</strong>. Combo your way to obscene scores and flex on the timeline.</p>
+        </article>
+        <article class="card">
+          <div>🔥</div>
+          <h3>Burn With Purpose</h3>
+          <p>Each play sends value to the fire. Launch period: <strong>50% of game revenue burned</strong> (DAO‑adjustable after the first 3 months).</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="notify">
+      <div class="notify">
+        <div>
+          <h2 style="font-family:'Luckiest Guy'; font-weight:400; letter-spacing:.5px; margin:0 0 8px; font-size:36px">Get Launch Email</h2>
+          <p style="margin:0 0 14px; color:#EAEAEA">No spam. We’ll ping you when the demo drops and when the global leaderboard goes live.</p>
+          <form class="form" action="#" method="post" onsubmit="return subscribe(this)">
+            <input class="input" type="email" name="email" placeholder="you@degencitadel.sol" required aria-label="Email address" />
+            <button class="btn primary" type="submit">Notify Me</button>
+          </form>
+          <small style="display:block; margin-top:8px; color:var(--gray)">Or join the chat — faster alpha: <a href="https://t.me/QueefCoinOfficial" target="_blank" rel="noopener" style="text-decoration:underline; color:#fff">Telegram</a></small>
+        </div>
+        <div class="card" style="background: rgba(255,255,255,.04)">
+          <h3>Mini Roadmap</h3>
+          <div class="road">
+            <div class="step"><strong>Phase 1</strong><br/> Core runner + mobile controls</div>
+            <div class="step"><strong>Phase 2</strong><br/> Coins, lives, and power‑ups</div>
+            <div class="step"><strong>Phase 3</strong><br/> Global leaderboard + anti‑cheat</div>
+            <div class="step"><strong>Phase 4</strong><br/> Burn tracking + DAO knobs</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="cards">
+        <article class="card">
+          <h3>When is launch?</h3>
+          <p>We’re targeting the date above. The countdown will keep you honest; we’ll keep building. If the DAO nudges the plan, we’ll update here.</p>
+        </article>
+        <article class="card">
+          <h3>Play to burn — how?</h3>
+          <p>During the initial window, 50% of game revenue is burned, 20% to DAO, 20% to leaderboard rewards, 10% to dev. After 3 months, these split knobs are DAO‑adjustable.</p>
+        </article>
+        <article class="card">
+          <h3>Where can I follow?</h3>
+          <p><a href="https://x.com/search?q=%24QUEEF" target="_blank" rel="noopener">X</a> • <a href="https://t.me/QueefCoinOfficial" target="_blank" rel="noopener">Telegram</a> • <a href="https://memedev2526.github.io/QueefCoin/" target="_blank" rel="noopener">Website</a></p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div class="brand" style="gap:8px">
+        <div class="brand-logo" aria-hidden="true"></div>
+        <strong>$QUEEF</strong>
+      </div>
+      <div class="contract">Contract: <span title="placeholder — update this on deploy">TBA</span></div>
+    </div>
+  </footer>
+
+  <script>
+    // --- Countdown ---
+    (function(){
+      const el = document.getElementById('countdown');
+      if(!el) return;
+      const launchStr = el.getAttribute('data-launch');
+      let target = new Date(launchStr || Date.now()+7*24*3600*1000);
+      const d = el.querySelector('#d'), h = el.querySelector('#h'), m = el.querySelector('#m'), s = el.querySelector('#s');
+      const pad = (n)=> String(n).padStart(2,'0');
+      function tick(){
+        const now = new Date();
+        let diff = Math.max(0, target - now);
+        const days = Math.floor(diff / (24*3600e3)); diff -= days*24*3600e3;
+        const hrs  = Math.floor(diff / (3600e3));    diff -= hrs*3600e3;
+        const mins = Math.floor(diff / (60e3));      diff -= mins*60e3;
+        const secs = Math.floor(diff / 1e3);
+        d.textContent = pad(days);
+        h.textContent = pad(hrs);
+        m.textContent = pad(mins);
+        s.textContent = pad(secs);
+      }
+      tick(); setInterval(tick, 1000);
+    })();
+
+    // --- Simple subscribe handler (swap with real endpoint) ---
+    function subscribe(form){
+      const email = form.email.value.trim();
+      if(!email) return false;
+      // TODO: replace with real endpoint (Beehiiv, Mailchimp, Revue, custom API)
+      alert(`Thanks! We'll notify ${email} at launch.`);
+      form.reset();
+      return false; // prevent default
+    }
+  </script>
+</body>
+</html>
